@@ -42,9 +42,11 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    //Создание уникального кода на основе максимального кода + 1
+    const maxCode = Math.max(...this.state.list.map(item => item.code));
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: maxCode + 1 , title: 'Новая запись'}]
     })
   };
 
