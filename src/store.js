@@ -70,6 +70,10 @@ class Store {
         if (item.code === code) {
           item.selected = !item.selected;
         }
+        //Выделение только выбранной записи
+        else {
+          item.selected = false;
+        }
         return item;
       })
     })
