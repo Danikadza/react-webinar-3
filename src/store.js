@@ -46,7 +46,7 @@ class Store {
     const maxCode = Math.max(...this.state.list.map(item => item.code));
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: maxCode + 1 , title: 'Новая запись'}]
+      list: [...this.state.list, {code: maxCode + 1 , title: 'Новая запись', counter: 0}]
     })
   };
 
@@ -75,6 +75,10 @@ class Store {
         //Выделение только выбранной записи
         else {
           item.selected = false;
+        }
+        //Подсчет выделения элемента
+        if (item.selected){
+          item.counter = item.counter+1
         }
         return item;
       })
