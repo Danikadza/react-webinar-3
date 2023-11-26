@@ -5,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.initListLength = this.state.list.length //Начальная длина списка строк
   }
 
   /**
@@ -42,11 +43,12 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
-    //Создание уникального кода на основе максимального кода + 1
-    const maxCode = Math.max(...this.state.list.map(item => item.code));
+    //Создание уникального кода на основе начальной длины строк + 1
+    let newCode = this.initListLength + 1
+    this.initListLength = newCode
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: maxCode + 1 , title: 'Новая запись', counter: 0}]
+      list: [...this.state.list, {code: newCode, title: 'Новая запись', counter: 0}]
     })
   };
 

@@ -10,6 +10,23 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+  
+//Функция для плюрализации
+  function pluralize(number) {
+    if (number === 1) {
+      return number + " раз";
+    } else if (number % 10 === 1 && number % 100 !== 11) {
+      return number + " раз";
+    } else if (
+      number % 10 >= 2 &&
+      number % 10 <= 4 &&
+      (number % 100 < 10 || number % 100 >= 20)
+    ) {
+      return number + " раза";
+    } else {
+      return number + " раз";
+    }
+  }
 
   return (
     <div className='App'>
@@ -26,8 +43,8 @@ function App({store}) {
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}</div>
-                {item.counter>0 && <div className='Item-counter'>Выделяли {item.counter} раз</div>}
+                {item.counter==0 && <div className='Item-title'>{item.title}</div>}
+                {item.counter>0 && <div className='Item-title'>{item.title} | Выделяли {pluralize(item.counter)} </div>}
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
