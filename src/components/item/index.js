@@ -33,9 +33,10 @@ function Item(props) {
         many: 'раз'
       })}` : ''}
       </div>
+      <div className='Item-price'>{props.item.price + '₽'}</div>
       <div className='Item-actions'>
         <button onClick={callbacks.onDelete}>
-          Удалить
+          Добавить
         </button>
       </div>
     </div>

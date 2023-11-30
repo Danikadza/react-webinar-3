@@ -15,6 +15,7 @@ function App({store}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -40,8 +41,8 @@ function App({store}) {
 
   return (
     <PageLayout>
-      {isModalOpen && <Modal onCloseModal={closeModal}/>}
-      <Head title='Приложение на чистом JS'/>
+      {isModalOpen && <Modal cart={cart} onCloseModal={closeModal}/>}
+      <Head title='Магазин'/>
       <Controls onAdd={openModal}/>
       <List list={list}
             onDeleteItem={callbacks.onDeleteItem}
