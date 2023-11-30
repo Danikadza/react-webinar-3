@@ -14,7 +14,8 @@ function App({store}) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const list = store.getState().list;
+  const list = store.getState().list || [];
+  
   const cart = store.getState().cart;
 
   const openModal = () => {
@@ -34,8 +35,8 @@ function App({store}) {
       store.selectItem(code);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
     }, [store])
   }
 
@@ -46,7 +47,9 @@ function App({store}) {
       <Controls onAdd={openModal}/>
       <List list={list}
             onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onSelectItem={callbacks.onSelectItem}
+            onAddItem={callbacks.onAddItem}/>
+            
     </PageLayout>
   );
 }
