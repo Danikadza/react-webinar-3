@@ -5,11 +5,11 @@ import './style.css';
 
 function CartItem(props) {
 
-  // Счётчик выделений
-  const [count, setCount] = useState(0);
 
   const callbacks = {
-    
+    onDelete: () => {
+      props.onDeleteItem(props.item.code);
+    }
   }
 
   return (
@@ -24,7 +24,7 @@ function CartItem(props) {
       <div className='Item-count'>{props.item.count + 'шт'}</div>
       </div>
       <div className='Item-actions'>
-        <button >
+        <button onClick={callbacks.onDelete}>
           Удалить
         </button>
       </div>
@@ -33,11 +33,12 @@ function CartItem(props) {
 }
 
 CartItem.propTypes = {
- 
+  onDeleteItem: PropTypes.func,
 };
 
 CartItem.defaultProps = {
- 
+  onDeleteItem: () => {
+  },
 }
 
 export default React.memo(CartItem);

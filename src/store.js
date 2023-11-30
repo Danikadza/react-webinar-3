@@ -70,8 +70,11 @@ class Store {
    */
   deleteItem(code) {
     const updatedCart = this.state.cart.filter(item => item.code !== code);
-  this.setState({ cart: updatedCart });
-  };
+    this.setState({
+      ...this.state,
+      cart: updatedCart
+    });
+  }
 
   /**
    * Выделение записи по коду

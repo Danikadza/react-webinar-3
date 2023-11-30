@@ -4,7 +4,6 @@ import Item from "../item";
 import './style.css';
 
 function List({list, onDeleteItem, onSelectItem, onAddItem}) {
-  console.log("Updated List:", list);
   return (
     <div className='List'>{
       list.map(item =>

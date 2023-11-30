@@ -2,8 +2,9 @@ import React, { useCallback, useState } from 'react';
 import Cart from '../cart'
 import './style.css';
 import Head from '../head'
+import PropTypes from 'prop-types';
 
-function Modal({onCloseModal, cart}) {
+function Modal({onCloseModal, cart, onDeleteItem}) {
   return (
     <div className='Modal'>
       <div className='Modal-window'>
@@ -11,11 +12,20 @@ function Modal({onCloseModal, cart}) {
           <Head title="Корзина"/>
           <button className='Modal-headerButton' onClick={onCloseModal}>Закрыть</button>
         </div>
-        <Cart cart={cart}/>
+        <Cart cart={cart} onDeleteItem={onDeleteItem}/>
       </div>
       <div className='overlay'></div>
     </div>
   );
+}
+
+Modal.propTypes = {
+  onDeleteItem: PropTypes.func,
+};
+
+Modal.defaultProps = {
+  onDeleteItem: () => {
+  },
 }
 
 export default React.memo(Modal);
