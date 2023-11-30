@@ -29,6 +29,15 @@
     height: 21px;    
 }
 
+.Modal-sum{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    gap: 20px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
 .overlay {
     position: absolute;
     top: 0;

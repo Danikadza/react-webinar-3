@@ -1,0 +1,12 @@
+.CartInfo {
+    font-size: 18px;
+    font-weight: 400;
+    display: flex;
+    gap: 20px
+  }
+
+  .CartInfo-sum{
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
