@@ -45,14 +45,10 @@ function App({store}) {
     <PageLayout>
       {isModalOpen && <Modal cart={cart} onCloseModal={closeModal} onDeleteItem={callbacks.onDeleteItem}/>}
       <Head title='Магазин'/>
-      <div>
-      <CartInfo cart={cart}/>
-      <Controls onAdd={openModal}/>
-      </div>
+      <CartInfo cart={cart} onAdd={openModal}/>
       <List list={list}
             onSelectItem={callbacks.onSelectItem}
             onAddItem={callbacks.onAddItem}/>
-            
     </PageLayout>
   );
 }

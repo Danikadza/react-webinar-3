@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import Controls from '../controls'
 
 function calculateSummary(cart) {
     const count = cart.reduce((total, item) => total + item.count, 0);
@@ -18,22 +19,24 @@ function pluralize(number, one, few, many) {
     }
 }
 
-function CartInfo({ cart }) {
+function CartInfo({ cart, onAdd }) {
 
     const { count, totalPrice } = calculateSummary(cart);
     const word = pluralize(count, "товар", "товара", "товаров");
-
+    onAdd
     return (
-        <div className="CartInfo">
-            <div className='CartInfo-cart'>
-                В корзине:
+        <div className="CartInfo-wrapper">
+            <div className="CartInfo">
+                <div className='CartInfo-cart'>
+                    В корзине:
+                </div>
+                <div className='CartInfo-sum'>
+                    {count} {word} / {totalPrice} ₽
+                </div>
             </div>
-            <div className='CartInfo-sum'>
-                {count} {word} / {totalPrice} ₽
-            </div>
+            <Controls onAdd={onAdd} />
 
         </div>
-
     )
 }
 

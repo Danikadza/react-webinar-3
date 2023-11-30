@@ -1,4 +1,10 @@
+.CartInfo-wrapper{
+ display: flex;
+ justify-content: flex-end;
+}
+
 .CartInfo {
+    align-items: center;
     font-size: 18px;
     font-weight: 400;
     display: flex;
