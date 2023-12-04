@@ -1,11 +1,6 @@
-import React, { useCallback, useState } from 'react';
-import Cart from '../cart'
+import React from "react";
 import './style.css';
-import Head from '../head'
 import PropTypes from 'prop-types';
-import { formatPrice } from '../../utils';
-import CartHead from '../carthead'
-
 
 function Modal({children}) {
 

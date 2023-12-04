@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import CartItem from "../cartItem";
 import './style.css';
 import { formatPrice } from '../../utils';
-import CartHead from '../carthead'
 
-function Cart({ cart, onDeleteItem, totalCartPrice, title, onCloseModal }) {
+function Cart({ cart, onDeleteItem, totalCartPrice  }) {
   return (
     <div className='cart'>
-      <CartHead title={title} onCloseModal={onCloseModal}></CartHead>
       {cart.map(item =>
         <div key={item.code} className='cart-item'>
           <CartItem item={item} onDeleteItem={onDeleteItem} />

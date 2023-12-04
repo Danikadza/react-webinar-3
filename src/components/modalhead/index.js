@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-function CartHead({title, onCloseModal}) {
+function ModalHead({title, onCloseModal}) {
   return (
     <div className='carthead'>
           <h1>{title}</h1>
@@ -11,8 +11,8 @@ function CartHead({title, onCloseModal}) {
   )
 }
 
-CartHead.propTypes = {
+ModalHead.propTypes = {
   title: PropTypes.node,
 };
 
-export default React.memo(CartHead);
+export default React.memo(ModalHead);

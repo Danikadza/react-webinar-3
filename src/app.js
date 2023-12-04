@@ -6,6 +6,8 @@ import PageLayout from "./components/page-layout";
 import Modal from './components/modal'
 import CartInfo from './components/cartInfo'
 import Cart from './components/cart'
+import ModalHead from './components/modalhead'
+
 
 /**
  * Приложение
@@ -47,7 +49,8 @@ function App({store}) {
   return (
     <PageLayout>
       {isModalOpen && <Modal >
-        <Cart cart={cart} totalCartPrice={totalCartPrice} onCloseModal={closeModal} onDeleteItem={callbacks.onDeleteItem} title='Корзина'/>
+        <ModalHead title='Корзина' onCloseModal={closeModal} />
+        <Cart cart={cart} totalCartPrice={totalCartPrice} onDeleteItem={callbacks.onDeleteItem}/>
         </Modal>}
       <Head title='Магазин'/>
       <CartInfo cart={cart} onAdd={openModal} totalCartPrice={totalCartPrice}/>
