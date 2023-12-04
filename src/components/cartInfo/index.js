@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 import Controls from '../controls'
+import { formatPrice } from '../../utils';
 
 function pluralize(number, one, few, many) {
     if (number % 10 === 1 && number % 100 !== 11) {
@@ -36,7 +37,7 @@ function CartInfo({ cart, onAdd, totalCartPrice }) {
                     В корзине:
                 </div>
                 <div className='CartInfo-sum'>
-                    {cart.length} {word} / {totalCartPrice} ₽
+                    {cart.length} {word} / {formatPrice(totalCartPrice)}
                 </div>
             </div>
             <Controls onAdd={onAdd} />

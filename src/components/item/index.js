@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {plural} from "../../utils";
 import './style.css';
+import { formatPrice } from '../../utils';
 
 function Item(props) {
 
@@ -25,7 +26,7 @@ function Item(props) {
       <div className='Item-title'>
         {props.item.title} 
       </div>
-      <div className='Item-price'>{props.item.price + '₽'}</div>
+      <div className='Item-price'>{formatPrice(props.item.price)}</div>
       <div className='Item-actions'>
         <button onClick={callbacks.onAddToCart}>
           Добавить

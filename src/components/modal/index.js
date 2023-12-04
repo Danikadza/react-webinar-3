@@ -3,6 +3,8 @@ import Cart from '../cart'
 import './style.css';
 import Head from '../head'
 import PropTypes from 'prop-types';
+import { formatPrice } from '../../utils';
+
 
 function Modal({ onCloseModal, cart, onDeleteItem, totalCartPrice }) {
 
@@ -16,7 +18,7 @@ function Modal({ onCloseModal, cart, onDeleteItem, totalCartPrice }) {
         <Cart cart={cart} onDeleteItem={onDeleteItem} totalCartPrice={totalCartPrice} />
         <div className='modal-sum'>
           <div>Итого</div>
-          <div>{totalCartPrice} ₽</div>
+          <div>{formatPrice(totalCartPrice)}</div>
         </div>
       </div>
       <div className='overlay'></div>
