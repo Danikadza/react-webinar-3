@@ -2,15 +2,20 @@ import React from "react";
 import PropTypes from 'prop-types';
 import CartItem from "../cartItem";
 import './style.css';
+import { formatPrice } from '../../utils';
 
-function Cart({cart, onDeleteItem}) {
+function Cart({ cart, onDeleteItem, totalCartPrice }) {
   return (
-    <div className='Cart'>
-        {cart.map(item =>
-        <div key={item.code} className='List-item'>
-          <CartItem item={item} onDeleteItem={onDeleteItem}/>
+    <div className='cart'>
+      {cart.map(item =>
+        <div key={item.code} className='cart-item'>
+          <CartItem item={item} onDeleteItem={onDeleteItem} />
         </div>
       )}
+      <div className="cart-sum">
+      <div>Итого</div>
+      <div>{formatPrice(totalCartPrice)}</div>
+      </div>
     </div>
   )
 }

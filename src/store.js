@@ -74,9 +74,11 @@ class Store {
    */
   deleteItem(code) {
     const updatedCart = this.state.cart.filter(item => item.code !== code);
+    const totalCartPrice = updatedCart.reduce((total, item) => total + item.totalPrice || 0, 0); // Обновление общей стоимости
     this.setState({
       ...this.state,
-      cart: updatedCart
+      cart: updatedCart,
+      totalCartPrice: totalCartPrice // Обновляем общую стоимость в state
     });
   }
 

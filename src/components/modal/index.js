@@ -6,20 +6,16 @@ import PropTypes from 'prop-types';
 import { formatPrice } from '../../utils';
 
 
-function Modal({ onCloseModal, cart, onDeleteItem, totalCartPrice }) {
+function Modal({ onCloseModal, cart, onDeleteItem, totalCartPrice, title }) {
 
   return (
     <div className='modal'>
       <div className='modal-window'>
         <div className='modal-header'>
-          <h1>Корзина</h1>
+          <h1>{title}</h1>
           <button className='modal-headerButton' onClick={onCloseModal}>Закрыть</button>
         </div>
         <Cart cart={cart} onDeleteItem={onDeleteItem} totalCartPrice={totalCartPrice} />
-        <div className='modal-sum'>
-          <div>Итого</div>
-          <div>{formatPrice(totalCartPrice)}</div>
-        </div>
       </div>
       <div className='overlay'></div>
     </div>

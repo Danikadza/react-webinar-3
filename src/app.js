@@ -45,7 +45,7 @@ function App({store}) {
 
   return (
     <PageLayout>
-      {isModalOpen && <Modal cart={cart} totalCartPrice={totalCartPrice} onCloseModal={closeModal} onDeleteItem={callbacks.onDeleteItem}/>}
+      {isModalOpen && <Modal cart={cart} totalCartPrice={totalCartPrice} onCloseModal={closeModal} onDeleteItem={callbacks.onDeleteItem} title='Корзина'/>}
       <Head title='Магазин'/>
       <CartInfo cart={cart} onAdd={openModal} totalCartPrice={totalCartPrice}/>
       <List list={list}
