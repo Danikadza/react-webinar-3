@@ -4,18 +4,15 @@ import './style.css';
 import Head from '../head'
 import PropTypes from 'prop-types';
 import { formatPrice } from '../../utils';
+import CartHead from '../carthead'
 
 
-function Modal({ onCloseModal, cart, onDeleteItem, totalCartPrice, title }) {
+function Modal({children}) {
 
   return (
     <div className='modal'>
       <div className='modal-window'>
-        <div className='modal-header'>
-          <h1>{title}</h1>
-          <button className='modal-headerButton' onClick={onCloseModal}>Закрыть</button>
-        </div>
-        <Cart cart={cart} onDeleteItem={onDeleteItem} totalCartPrice={totalCartPrice} />
+        {children}
       </div>
       <div className='overlay'></div>
     </div>
@@ -23,12 +20,7 @@ function Modal({ onCloseModal, cart, onDeleteItem, totalCartPrice, title }) {
 }
 
 Modal.propTypes = {
-  onDeleteItem: PropTypes.func,
-};
-
-Modal.defaultProps = {
-  onDeleteItem: () => {
-  },
+  children: PropTypes.node
 }
 
 export default React.memo(Modal);
