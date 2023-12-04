@@ -3,12 +3,6 @@ import PropTypes from "prop-types";
 import './style.css';
 import Controls from '../controls'
 
-function calculateSummary(cart) {
-    const count = cart.reduce((total, item) => total + item.count, 0);
-    const totalPrice = cart.reduce((total, item) => total + item.price * item.count, 0);
-    return { count, totalPrice };
-}
-
 function pluralize(number, one, few, many) {
     if (number % 10 === 1 && number % 100 !== 11) {
         return one;
@@ -19,10 +13,9 @@ function pluralize(number, one, few, many) {
     }
 }
 
-function CartInfo({ cart, onAdd }) {
+function CartInfo({ cart, onAdd, totalCartPrice }) {
 
-    const { count, totalPrice } = calculateSummary(cart);
-    const word = pluralize(count, "товар", "товара", "товаров");
+    const word = pluralize(cart.length, "товар", "товара", "товаров");
     onAdd
     return (
         <div className="CartInfo-wrapper">
@@ -31,7 +24,7 @@ function CartInfo({ cart, onAdd }) {
                     В корзине:
                 </div>
                 <div className='CartInfo-sum'>
-                    {count} {word} / {totalPrice} ₽
+                    {cart.length} {word} / {totalCartPrice} ₽
                 </div>
             </div>
             <Controls onAdd={onAdd} />
