@@ -1,16 +1,18 @@
 .cart {
-
+ margin-top: 60px;
 }
 
 .cart-item {
   border-bottom: 1px dashed #ccc;
+  border-top: 1px dashed #ccc;
 }
 
 .cart-sum{
   display: flex;
   justify-content: flex-end;
   padding: 20px;
-  gap: 20px;
+  gap: 50px;
   font-size: 18px;
   font-weight: 700;
+  margin-right: 90px;
 }

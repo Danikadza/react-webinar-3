@@ -20,6 +20,7 @@
 
   .Item-info{
     display: flex;
+    gap: 30px;
   }
   
   .Item-price{
