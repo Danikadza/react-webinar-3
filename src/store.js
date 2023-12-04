@@ -52,14 +52,18 @@ class Store {
       const existingCartItem = updatedCart.find(item => item.code === code);
   
       if (existingCartItem) {
-        existingCartItem.count += 1; 
+        existingCartItem.count += 1;
+        existingCartItem.totalPrice = existingCartItem.count * existingCartItem.price; // Вычисление общей стоимости
       } else {
-        updatedCart.push({ ...selectedItem, count: 1 }); 
+                // Первое добавление в корзину
+        updatedCart.push({ ...selectedItem, count: 1, totalPrice: selectedItem.price }); 
       }
   
+      const totalCartPrice = updatedCart.reduce((total, item) => total + (item.totalPrice || 0), 0); // Считаем общую стоимость корзины
       this.setState({
         ...this.state,
-        cart: updatedCart
+        cart: updatedCart,
+        totalCartPrice: totalCartPrice  // Обновляем общую стоимость корзины в state
       });
     }
   }

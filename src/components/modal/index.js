@@ -4,12 +4,8 @@ import './style.css';
 import Head from '../head'
 import PropTypes from 'prop-types';
 
-function Modal({onCloseModal, cart, onDeleteItem}) {
+function Modal({onCloseModal, cart, onDeleteItem, totalCartPrice}) {
 
-  function calculateTotalPrice(cart) {
-    return cart.reduce((total, item) => total + item.price * item.count, 0);
-  }
-  const totalPrice = calculateTotalPrice(cart);
   return (
     <div className='Modal'>
       <div className='Modal-window'>
@@ -17,10 +13,10 @@ function Modal({onCloseModal, cart, onDeleteItem}) {
           <Head title="Корзина"/>
           <button className='Modal-headerButton' onClick={onCloseModal}>Закрыть</button>
         </div>
-        <Cart cart={cart} onDeleteItem={onDeleteItem}/>
+        <Cart cart={cart} onDeleteItem={onDeleteItem} totalCartPrice={totalCartPrice}/>
         <div className='Modal-sum'>
           <div>Итого</div>
-          <div>{totalPrice} ₽</div>
+          <div>{totalCartPrice} ₽</div>
         </div>
       </div>
       <div className='overlay'></div>

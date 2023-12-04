@@ -19,6 +19,8 @@ function App({store}) {
   
   const cart = store.getState().cart;
 
+  const totalCartPrice = store.getState().totalCartPrice;
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -43,7 +45,7 @@ function App({store}) {
 
   return (
     <PageLayout>
-      {isModalOpen && <Modal cart={cart} onCloseModal={closeModal} onDeleteItem={callbacks.onDeleteItem}/>}
+      {isModalOpen && <Modal cart={cart} totalCartPrice={totalCartPrice} onCloseModal={closeModal} onDeleteItem={callbacks.onDeleteItem}/>}
       <Head title='Магазин'/>
       <CartInfo cart={cart} onAdd={openModal}/>
       <List list={list}
