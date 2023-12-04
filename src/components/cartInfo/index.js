@@ -15,6 +15,18 @@ function pluralize(number, one, few, many) {
 
 function CartInfo({ cart, onAdd, totalCartPrice }) {
 
+    if (cart.length === 0) {
+        return (
+            <div className="CartInfo-wrapper">
+                <div className="CartInfo">
+                    <div className='CartInfo-cart'>В корзине:</div>
+                    <div className='CartInfo-sum'>пусто</div>
+                </div>
+                <Controls onAdd={onAdd} />
+            </div>
+        );
+    }
+
     const word = pluralize(cart.length, "товар", "товара", "товаров");
     onAdd
     return (
