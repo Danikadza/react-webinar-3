@@ -19,11 +19,9 @@ function Pagination({ totalPages, onPageChange }) {
   const pageNumbers = () => {
     let pageNumbers = [];
 
-    if (totalPages <= 5) {
-      pageNumbers = Array.from({ length: totalPages }, (v, i) => i + 1);
-    } else if (currentPage <= 2) {
+    if (currentPage <= 2) {
       pageNumbers = [1, 2, 3, '...', totalPages];
-    } else if (currentPage >= totalPages - 1) {
+    }  else if (currentPage >= totalPages - 1) {
       pageNumbers = [1, totalPages - 2, totalPages - 1, totalPages];
     } else {
       pageNumbers = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
