@@ -26,8 +26,6 @@ function Main() {
     sum: state.basket.sum
   }));
 
-
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),

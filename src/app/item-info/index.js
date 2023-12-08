@@ -1,38 +1,62 @@
-import {memo, useCallback} from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import BasketTool from "../../components/basket-tool";
 import Head from "../../components/head";
 import useSelector from "../../store/use-selector";
 import useStore from "../../store/use-store";
 import ItemDescription from "../../components/item-description"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import PageLayout from "../../components/page-layout";
 
 
 function ItemInfo() {
 
+    const [currentItem, setCurrentItem] = useState(null);
+
     const store = useStore();
+
+    let { itemId } = useParams();
+
+    useEffect(() => {
+        const fetchItem = async () => {
+            const itemData = await store.actions.catalog.loadItem(itemId);
+            setCurrentItem(itemData);
+            console.log(itemData);
+        };
+        fetchItem();
+    }, [itemId, store]);
 
     const callbacks = {
         // Добавление в корзину
         addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
         // Открытие модалки корзины
         openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-      }
+    }
 
-      const select = useSelector(state => ({
+    const select = useSelector(state => ({
         list: state.catalog.list,
         amount: state.basket.amount,
         sum: state.basket.sum
-      }));
-    
+    }));
 
-  return (
-    <>
-    <Head title='Название товара'/>
-    <Link to={`/`}>Главная</Link>
-    <ItemDescription/>
-    <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-    </>
-  );
+    // useEffect(() => {
+    //     const response =  fetch(`/api/v1/articles/${itemId}`);
+    //     const json =  response.json();
+    //     setCurrentItem(json)
+    //   }, [currentItem, itemId]);
+
+    return (
+        <PageLayout>
+            {currentItem &&
+                <>
+                    <Head title={currentItem.title} />
+                    <Link to={`/`}>Главная</Link>
+                    <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+                    <ItemDescription description={currentItem.description} year={currentItem.edition} category={currentItem.category.title} country={currentItem.madeIn.title} price={currentItem.price}/>
+                </>
+            }
+
+        </PageLayout>
+    );
 }
 
 export default memo(ItemInfo);
