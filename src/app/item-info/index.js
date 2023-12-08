@@ -6,6 +6,7 @@ import useStore from "../../store/use-store";
 import ItemDescription from "../../components/item-description"
 import { Link, useParams } from "react-router-dom";
 import PageLayout from "../../components/page-layout";
+import './style.css';
 
 
 function ItemInfo() {
@@ -41,8 +42,10 @@ function ItemInfo() {
             {currentItem &&
                 <>
                     <Head title={currentItem.title} />
+                    <div className='cartAndNavigationTools'>
                     <Link to={`/`}>Главная</Link>
                     <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+                    </div>
                     <ItemDescription description={currentItem.description} year={currentItem.edition} category={currentItem.category.title} country={currentItem.madeIn.title} price={currentItem.price} onAdd={callbacks.addToBasket} itemId={itemId}/>
                 </>
             }

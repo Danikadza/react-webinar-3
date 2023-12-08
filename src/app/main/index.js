@@ -8,6 +8,8 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from "../../components/pagination";
 import { Link } from "react-router-dom";
+import './style.css';
+
 
 function Main() {
 
@@ -46,10 +48,10 @@ function Main() {
   return (
     <PageLayout>
       <Head title='Магазин' />
-      <li>
-        <Link to={`/`}>Главная</Link>
-      </li>
+      <div className='cartAndNavigationTools'>
+      <Link to={`/`}>Главная</Link>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
+      </div>
       <List
         list={select.list}
         renderItem={renders.item}
