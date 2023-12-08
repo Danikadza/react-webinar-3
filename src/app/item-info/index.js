@@ -28,8 +28,6 @@ function ItemInfo() {
     const callbacks = {
         // Добавление в корзину
         addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-        // Открытие модалки корзины
-        openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     }
 
     const select = useSelector(state => ({
@@ -38,12 +36,6 @@ function ItemInfo() {
         sum: state.basket.sum
     }));
 
-    // useEffect(() => {
-    //     const response =  fetch(`/api/v1/articles/${itemId}`);
-    //     const json =  response.json();
-    //     setCurrentItem(json)
-    //   }, [currentItem, itemId]);
-
     return (
         <PageLayout>
             {currentItem &&
@@ -51,7 +43,7 @@ function ItemInfo() {
                     <Head title={currentItem.title} />
                     <Link to={`/`}>Главная</Link>
                     <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
-                    <ItemDescription description={currentItem.description} year={currentItem.edition} category={currentItem.category.title} country={currentItem.madeIn.title} price={currentItem.price}/>
+                    <ItemDescription description={currentItem.description} year={currentItem.edition} category={currentItem.category.title} country={currentItem.madeIn.title} price={currentItem.price} onAdd={callbacks.addToBasket} itemId={itemId}/>
                 </>
             }
 
