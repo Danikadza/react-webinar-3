@@ -7,11 +7,15 @@ import ItemDescription from "../../components/item-description"
 import { Link, useParams } from "react-router-dom";
 import PageLayout from "../../components/page-layout";
 import './style.css';
+import Basket from "../basket";
+
 
 
 function ItemInfo() {
 
     const [currentItem, setCurrentItem] = useState(null);
+
+    const activeModal = useSelector(state => state.modals.name);
 
     const store = useStore();
 
@@ -29,6 +33,7 @@ function ItemInfo() {
     const callbacks = {
         // Добавление в корзину
         addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
+        openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     }
 
     const select = useSelector(state => ({
@@ -39,7 +44,7 @@ function ItemInfo() {
 
     return (
         <PageLayout>
-            {currentItem &&
+            {currentItem && 
                 <>
                     <Head title={currentItem.title} />
                     <div className='cartAndNavigationTools'>
@@ -47,6 +52,7 @@ function ItemInfo() {
                     <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} />
                     </div>
                     <ItemDescription description={currentItem.description} year={currentItem.edition} category={currentItem.category.title} country={currentItem.madeIn.title} price={currentItem.price} onAdd={callbacks.addToBasket} itemId={itemId}/>
+                    {activeModal === 'basket' && <Basket/>}
                 </>
             }
 

@@ -10,7 +10,8 @@ class Catalog extends StoreModule {
 
   initState() {
     return {
-      list: []
+      list: [],
+      totalItems: 0,
     }
   }
 
@@ -29,6 +30,15 @@ class Catalog extends StoreModule {
     const response = await fetch(`/api/v1/articles/${itemId}?fields=*,madeIn(title,code),category(title)`);
     const json = await response.json();
     return json.result;
+  }
+
+  async loadTotalItems() {
+    const response = await fetch(`/api/v1/articles?limit=10&skip=10&fields=items(_id, title, price),count`);
+    const json = await response.json();
+    this.setState({
+      ...this.getState(),
+      totalItems: json.result.count,
+    }, 'Получено общее количество товаров из АПИ');
   }
 
 }

@@ -16,17 +16,19 @@ function Main() {
   const store = useStore();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = 25;
-
   useEffect(() => {
     store.actions.catalog.load(currentPage); //начальная страница
+    store.actions.catalog.loadTotalItems();
   }, [store, currentPage]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     amount: state.basket.amount,
-    sum: state.basket.sum
+    sum: state.basket.sum,
+    totalItems:state.catalog.totalItems,
   }));
+
+  const totalPages = Math.ceil(select.totalItems / 10);;
 
   const callbacks = {
     // Добавление в корзину

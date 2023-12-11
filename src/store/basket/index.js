@@ -1,4 +1,5 @@
 import StoreModule from "../module";
+import Catalog from "../catalog";
 
 class Basket extends StoreModule {
 
@@ -14,29 +15,27 @@ class Basket extends StoreModule {
    * Добавление товара в корзину
    * @param _id Код товара
    */
-  addToBasket(_id) {
+  async addToBasket(_id) {
     let sum = 0;
-    // Ищем товар в корзине, чтобы увеличить его количество
     let exist = false;
     const list = this.getState().list.map(item => {
       let result = item;
       if (item._id === _id) {
-        exist = true; // Запомним, что был найден в корзине
+        exist = true;
         result = {...item, amount: item.amount + 1};
       }
       sum += result.price * result.amount;
       return result;
     });
-
+  
     if (!exist) {
-      // Поиск товара в каталоге, чтобы его добавить в корзину.
-      // @todo В реальном приложении будет запрос к АПИ вместо поиска по состоянию.
-      const item = this.store.getState().catalog.list.find(item => item._id === _id);
-      list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
-      // Добавляем к сумме.
-      sum += item.price;
+      const catalog = new Catalog();
+      const chosenItem = await catalog.loadItem(_id); //загрузка товара из api, что позволит добавть товар даже после одновления страницы
+  
+      list.push({...chosenItem, amount: 1});
+      sum += chosenItem.price;
     }
-
+  
     this.setState({
       ...this.getState(),
       list,
