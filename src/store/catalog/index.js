@@ -16,8 +16,10 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        query: ''
+        category: 'all',
+        query: '',
       },
+      categories: [],
       count: 0,
       waiting: false
     }
@@ -35,6 +37,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('page')) validParams.page = Number(urlParams.get('page')) || 1;
     if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
     await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
   }
@@ -81,7 +84,8 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      'search[query]': params.query
+      category: params.category,
+      'search[query]': params.query,
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
@@ -93,6 +97,24 @@ class CatalogState extends StoreModule {
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }
+
+  async loadCategories() {
+
+    try {
+      const response = await fetch('http://example.front.ylab.io/api/v1/categories?skip=1,fields=_id,title,parent(_id)&limit=10');
+      const json = await response.json();
+      // Категории загружены успешно
+      this.setState({
+        ...this.getState(),
+        categories: json.result.items // сохраняем загруженные категории в состоянии
+      }, 'Загружены категории'); 
+    } catch (e) {
+      // Ошибка при загрузке
+      // @todo В стейт можно положить информацию об ошибке
+     
+    }
+  }
+
 }
 
 export default CatalogState;
