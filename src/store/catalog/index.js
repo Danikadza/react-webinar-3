@@ -16,7 +16,7 @@ class CatalogState extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'order',
-        category: 'all',
+        category: '',
         query: '',
       },
       categories: [],
@@ -39,7 +39,7 @@ class CatalogState extends StoreModule {
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('category')) validParams.category = urlParams.get('category');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
-    await this.setParams({...this.initState().params, ...validParams, ...newParams}, true);
+    await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
   /**
@@ -49,7 +49,7 @@ class CatalogState extends StoreModule {
    */
   async resetParams(newParams = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
-    const params = {...this.initState().params, ...newParams};
+    const params = { ...this.initState().params, ...newParams };
     // Установка параметров и загрузка данных
     await this.setParams(params);
   }
@@ -61,7 +61,7 @@ class CatalogState extends StoreModule {
    * @returns {Promise<void>}
    */
   async setParams(newParams = {}, replaceHistory = false) {
-    const params = {...this.getState().params, ...newParams};
+    const params = { ...this.getState().params, ...newParams };
 
     // Установка новых параметров и признака загрузки
     this.setState({
@@ -84,9 +84,13 @@ class CatalogState extends StoreModule {
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
-      category: params.category,
+
       'search[query]': params.query,
     };
+      //првоерка на пустую категорию
+    if (params.category) {
+      apiParams['search[category]'] = params.category
+    }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
     const json = await response.json();
@@ -101,17 +105,17 @@ class CatalogState extends StoreModule {
   async loadCategories() {
 
     try {
-      const response = await fetch('http://example.front.ylab.io/api/v1/categories?skip=1,fields=_id,title,parent(_id)&limit=10');
+      const response = await fetch('/api/v1/categories?skip=1,fields=_id,title,parent(_id)&limit=10');
       const json = await response.json();
       // Категории загружены успешно
       this.setState({
         ...this.getState(),
         categories: json.result.items // сохраняем загруженные категории в состоянии
-      }, 'Загружены категории'); 
+      }, 'Загружены категории');
     } catch (e) {
       // Ошибка при загрузке
       // @todo В стейт можно положить информацию об ошибке
-     
+
     }
   }
 

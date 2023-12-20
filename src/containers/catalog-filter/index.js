@@ -9,6 +9,7 @@ import SideLayout from "../../components/side-layout";
 /**
  * Контейнер со всеми фильтрами каталога
  */
+
 function CatalogFilter() {
 
   const store = useStore();
@@ -26,6 +27,8 @@ function CatalogFilter() {
     onSearch: useCallback(query => store.actions.catalog.setParams({query, page: 1}), [store]),
     // Сброс
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
+    //Фильтр по категориям
+    onCategory: useCallback(category => store.actions.catalog.setParams({category}), [store]),
   };
 
   useEffect(() => {
@@ -40,7 +43,7 @@ function CatalogFilter() {
       {value: 'edition', title: 'Древние'},
     ]), []),
     categoriesList: useMemo(() => {
-      const allCategories = [{ value: 'all', title: 'Все' }];
+      const allCategories = [{ value: '', title: 'Все' }];
       const updatedCategories = allCategories.concat(select.categories.map(category => ({
         value: category._id,
         title: category.title
@@ -53,8 +56,8 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
+      <Select options={options.categoriesList} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
-      <Select options={options.categoriesList} value={'Все'} onChange={''}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
