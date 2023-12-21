@@ -5,9 +5,11 @@ import useInit from "../../hooks/use-init";
 import Navigation from "../../containers/navigation";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
+import LoginButton from "../../containers/login-tool";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import {Link} from "react-router-dom";
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -24,6 +26,7 @@ function Main() {
 
   return (
     <PageLayout>
+      <LoginButton/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

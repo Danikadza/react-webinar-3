@@ -18,6 +18,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     categories: state.catalog.categories,
+    category: state.catalog.params.category
   }));
 
   const callbacks = {
@@ -35,6 +36,7 @@ function CatalogFilter() {
     store.actions.catalog.loadCategories();
   },[]);
 
+  
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
@@ -56,7 +58,7 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
-      <Select options={options.categoriesList} onChange={callbacks.onCategory}/>
+      <Select options={options.categoriesList} value={select.category} onChange={callbacks.onCategory}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>

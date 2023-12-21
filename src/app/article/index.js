@@ -9,6 +9,7 @@ import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import ArticleCard from "../../components/article-card";
+import LoginButton from "../../containers/login-tool";
 import LocaleSelect from "../../containers/locale-select";
 
 /**
@@ -38,6 +39,7 @@ function Article() {
 
   return (
     <PageLayout>
+      <LoginButton/>
       <Head title={select.article.title}>
         <LocaleSelect/>
       </Head>
